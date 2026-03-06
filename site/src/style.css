@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Design tokens (RGB triplets for easy `rgb(var(--token))` usage) */
+:root {
+  color-scheme: light;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  --font-serif: "Fraunces", ui-serif, Georgia, Cambria, "Times New Roman", Times,
+    serif;
+
+  --bg: 255 255 255;
+  --fg: 15 23 42; /* slate-900 */
+  --muted: 71 85 105; /* slate-600 */
+  --card: 248 250 252; /* slate-50 */
+  --border: 226 232 240; /* slate-200 */
+  --accent: 14 116 144; /* cyan-700 */
+  --accent-2: 30 64 175; /* blue-800 */
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: 2 6 23; /* slate-950 */
+  --fg: 226 232 240; /* slate-200 */
+  --muted: 148 163 184; /* slate-400 */
+  --card: 15 23 42; /* slate-900 */
+  --border: 51 65 85; /* slate-700 */
+  --accent: 34 211 238; /* cyan-400 */
+  --accent-2: 147 197 253; /* blue-300 */
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply m-0 min-h-dvh;
+    background: rgb(var(--bg));
+    color: rgb(var(--fg));
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 72;
+  }
+
+  a {
+    color: rgb(var(--accent));
+    @apply underline underline-offset-4;
+  }
+
+  a:hover {
+    color: rgb(var(--accent-2));
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.25);
+  }
+}
+
+#app {
+  @apply min-h-dvh;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  :root,
+  .dark {
+    color-scheme: light;
+    --bg: 255 255 255;
+    --fg: 0 0 0;
+    --muted: 51 65 85;
+    --card: 255 255 255;
+    --border: 203 213 225;
+    --accent: 0 0 0;
+    --accent-2: 0 0 0;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a {
+    color: rgb(var(--fg));
+    text-decoration: none;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
