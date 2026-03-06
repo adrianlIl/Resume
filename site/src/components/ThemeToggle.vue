@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import {
   applyResolvedTheme,
   getThemePreference,
-  resolveTheme,
+  getSystemTheme,
   setThemePreference,
   type ThemePreference,
   watchSystemThemeChange,
 } from '../lib/theme'
 
-const pref = ref<ThemePreference>('system')
-
-const resolved = computed(() => resolveTheme(pref.value))
+const pref = ref<Exclude<ThemePreference, 'system'>>('dark')
 
 let stopWatch: (() => void) | undefined
 
 onMounted(() => {
-  pref.value = getThemePreference()
-  applyResolvedTheme(resolveTheme(pref.value))
+  const stored = getThemePreference()
+  // Migrate legacy "system" to a concrete theme, since UI only exposes light/dark.
+  const next = stored === 'system' ? getSystemTheme() : stored
+  pref.value = next
+  applyResolvedTheme(next)
   stopWatch = watchSystemThemeChange((t) => {
-    if (pref.value === 'system') applyResolvedTheme(t)
+    // If user chose dark/light, we don't follow system changes.
+    void t
   })
 })
 
@@ -27,7 +29,7 @@ onBeforeUnmount(() => {
   stopWatch?.()
 })
 
-function setPref(next: ThemePreference) {
+function setPref(next: Exclude<ThemePreference, 'system'>) {
   pref.value = next
   setThemePreference(next)
 }
@@ -62,19 +64,6 @@ function setPref(next: ThemePreference) {
       @click="setPref('dark')"
     >
       Dark
-    </button>
-    <button
-      type="button"
-      class="rounded-full px-3 py-1 text-sm font-semibold transition"
-      :class="
-        pref === 'system'
-          ? 'text-white'
-          : 'text-[rgb(var(--muted))] hover:text-[rgb(var(--fg))]'
-      "
-      :style="pref === 'system' ? { background: `rgb(var(--accent))` } : {}"
-      @click="setPref('system')"
-    >
-      System ({{ resolved }})
     </button>
   </div>
 </template>
