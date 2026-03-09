@@ -203,9 +203,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="relative min-h-dvh overflow-x-clip">
+  <div class="relative min-h-dvh overflow-x-clip w-full">
     <!-- Parallax background -->
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden w-screen">
       <div
         class="js-parallax absolute -top-32 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(var(--accent)/0.35),transparent_60%)] blur-2xl"
         data-depth="0.25"
@@ -246,7 +246,7 @@ onBeforeUnmount(() => {
     </nav>
 
     <!-- Hero -->
-    <header id="top" class="mx-auto max-w-6xl px-6 pb-10 pt-14 md:pb-16 md:pt-20">
+    <header id="top" class="mx-auto max-w-[1600px] px-6 pb-10 pt-14 md:pb-16 md:pt-20">
       <div class="grid items-start gap-10 md:grid-cols-[1.15fr_.85fr]">
         <div>
           <p class="js-hero-fade-up inline-flex items-center gap-2 text-xs font-bold tracking-[0.24em] text-[rgb(var(--muted))]">
@@ -294,11 +294,11 @@ onBeforeUnmount(() => {
           </div>
         </div>
 
-        <div class="js-hero-fade-up rounded-3xl border border-[rgb(var(--border)/0.75)] bg-[rgb(var(--card)/0.55)] p-6 backdrop-blur">
+        <div class="js-hero-fade-up self-start rounded-3xl border border-[rgb(var(--border)/0.75)] bg-[rgb(var(--card)/0.55)] p-6 backdrop-blur">
           <p class="text-xs font-bold tracking-[0.24em] text-[rgb(var(--muted))]">
             HIGHLIGHTS
           </p>
-          <ul class="mt-4 space-y-3 text-sm leading-relaxed text-[rgb(var(--fg))]">
+          <ul class="mt-4 space-y-2.5 text-sm leading-relaxed text-[rgb(var(--fg))]">
             <li class="flex gap-3">
               <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[rgb(var(--accent))]" />
               <span>以使用者體驗為核心，做出直覺、流暢、可維護的介面。</span>
@@ -313,11 +313,11 @@ onBeforeUnmount(() => {
             </li>
           </ul>
 
-          <div class="mt-6 border-t border-[rgb(var(--border)/0.7)] pt-5">
+          <div class="mt-5 border-t border-[rgb(var(--border)/0.7)] pt-4">
             <p class="text-xs font-bold tracking-[0.24em] text-[rgb(var(--muted))]">
               LINKS
             </p>
-            <div class="mt-3 flex flex-wrap gap-2">
+            <div class="mt-2.5 flex flex-wrap gap-2">
               <a
                 v-for="l in resume.basics.links"
                 :key="l.url"
@@ -335,54 +335,63 @@ onBeforeUnmount(() => {
       </div>
     </header>
 
-    <main class="mx-auto grid max-w-6xl gap-14 px-6 pb-20 md:gap-20 md:pb-28">
+    <main class="mx-auto grid max-w-[1600px] gap-14 px-6 pb-20 md:gap-20 md:pb-28">
       <!-- About -->
       <section id="about" class="scroll-mt-24">
-        <div class="grid gap-8 md:grid-cols-2 md:items-start">
-          <div data-reveal="left" class="rounded-3xl border border-[rgb(var(--border)/0.8)] bg-[rgb(var(--card)/0.45)] p-7 backdrop-blur">
+        <div class="grid gap-8 w-full">
+          <div data-reveal="left" class="rounded-3xl border border-[rgb(var(--border)/0.8)] bg-[rgb(var(--card)/0.45)] p-4 sm:p-7 backdrop-blur w-full max-w-[1650px]">
             <p class="text-xs font-bold tracking-[0.24em] text-[rgb(var(--muted))]">
               ABOUT ME
             </p>
-            <h2 class="mt-3 text-2xl font-semibold tracking-tight text-[rgb(var(--fg))]">
+            <h2 class="mt-3 text-xl sm:text-2xl font-semibold tracking-tight text-[rgb(var(--fg))]">
               我把設計感與工程落地放在同一個優先順序
             </h2>
-            <p class="mt-4 text-base leading-relaxed text-[rgb(var(--muted))]">
+            <p class="mt-4 text-sm sm:text-base leading-relaxed text-[rgb(var(--muted))]">
               {{ intro2 }}
             </p>
-            <p class="mt-4 text-sm leading-relaxed text-[rgb(var(--muted))]">
+            <p class="mt-4 text-xs sm:text-sm leading-relaxed text-[rgb(var(--muted))]">
               {{ resume.basics.summary }}
             </p>
           </div>
 
-          <div data-reveal="right" class="rounded-3xl border border-[rgb(var(--border)/0.8)] bg-[rgb(var(--card)/0.45)] p-7 backdrop-blur">
+          <div data-reveal="right" class="rounded-3xl border border-[rgb(var(--border)/0.8)] bg-[rgb(var(--card)/0.45)] p-4 sm:p-7 backdrop-blur w-full">
             <p class="text-xs font-bold tracking-[0.24em] text-[rgb(var(--muted))]">
               WHAT I DO
             </p>
-            <div class="mt-5 grid gap-3">
+            <div class="mt-5 grid gap-3 w-full">
               <div class="feature-row">
                 <div class="feature-dot" />
-                <div>
-                  <p class="font-semibold text-[rgb(var(--fg))]">UI 實作與互動</p>
-                  <p class="mt-1 text-sm leading-relaxed text-[rgb(var(--muted))]">
-                    Tailwind 乾淨排版、元件化拆分，維持一致性與可擴充性。
+                <div class="min-w-0 break-words w-full">
+                  <p class="font-semibold text-[rgb(var(--fg))] text-sm sm:text-base">響應式網頁設計（RWD）</p>
+                  <p class="mt-1 text-xs sm:text-sm leading-relaxed text-[rgb(var(--muted))] break-words">
+                    切版與製作響應式網頁，確保跨裝置（桌面、平板、手機）的良好使用者體驗。
                   </p>
                 </div>
               </div>
               <div class="feature-row">
                 <div class="feature-dot" />
-                <div>
-                  <p class="font-semibold text-[rgb(var(--fg))]">動效與捲動體驗</p>
-                  <p class="mt-1 text-sm leading-relaxed text-[rgb(var(--muted))]">
-                    使用 GSAP + ScrollTrigger，讓內容進場、切換更有節奏感。
+                <div class="min-w-0 break-words w-full">
+                  <p class="font-semibold text-[rgb(var(--fg))] text-sm sm:text-base">API 串接與前後端整合</p>
+                  <p class="mt-1 text-xs sm:text-sm leading-relaxed text-[rgb(var(--muted))] break-words">
+                    與後端工程師協作，串接 API 並整合前後端資料，確保資料流順暢運作。
                   </p>
                 </div>
               </div>
               <div class="feature-row">
                 <div class="feature-dot" />
-                <div>
-                  <p class="font-semibold text-[rgb(var(--fg))]">API 串接與品質</p>
-                  <p class="mt-1 text-sm leading-relaxed text-[rgb(var(--muted))]">
-                    與後端協作資料流，並確保相容性、效能與維護性。
+                <div class="min-w-0 break-words w-full">
+                  <p class="font-semibold text-[rgb(var(--fg))] text-sm sm:text-base">功能開發與效能優化</p>
+                  <p class="mt-1 text-xs sm:text-sm leading-relaxed text-[rgb(var(--muted))] break-words">
+                    依據客戶需求進行功能開發與調整，並進行前端效能優化與跨瀏覽器相容性測試。
+                  </p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="feature-dot" />
+                <div class="min-w-0 break-words w-full">
+                  <p class="font-semibold text-[rgb(var(--fg))] text-sm sm:text-base">跨部門溝通協作</p>
+                  <p class="mt-1 text-xs sm:text-sm leading-relaxed text-[rgb(var(--muted))] break-words">
+                    與設計師及客戶溝通，提供前端技術可行性建議，將需求轉化為實用的網頁介面。
                   </p>
                 </div>
               </div>
@@ -617,7 +626,7 @@ onBeforeUnmount(() => {
       </section>
     </main>
 
-    <footer class="mx-auto max-w-6xl px-6 pb-10 text-sm text-[rgb(var(--muted))]">
+    <footer class="mx-auto max-w-[1600px] px-6 pb-10 text-sm text-[rgb(var(--muted))]">
       <p class="border-t border-[rgb(var(--border)/0.65)] pt-8">
         © {{ new Date().getFullYear() }} {{ resume.basics.name }} · Built with Tailwind + GSAP
       </p>
